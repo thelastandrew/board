@@ -36,7 +36,7 @@ const App = () => {
       const response = await fetch('https://rickandmortyapi.com/api/character/?page=1');
       const data: JSONResponseType = await response.json();
       const pre: CharacterType[] = [];
-      data.results.map(ch => {
+      data.results.forEach(ch => {
         pre.push({ id: ch.id, name: ch.name, image: ch.image })
       })
       setCharacters(pre)
