@@ -15,7 +15,6 @@ const Board: FC<PropsType> = ({ title, desc, content, maxContent }) => {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  //TODO FIX
   useEffect(() => {
     if (maxContent) {
       setTotalPages(Math.ceil(content.length / maxContent));
@@ -26,7 +25,7 @@ const Board: FC<PropsType> = ({ title, desc, content, maxContent }) => {
     } else {
       setCards(content);
     }
-  }, [page])
+  }, [page, content])
 
 
   const handlePrev = () => {
