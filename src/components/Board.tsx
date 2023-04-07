@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import Card from './Card';
 import { CharacterType } from '../App';
 import s from './board.module.css';
@@ -11,29 +11,30 @@ type PropsType = {
 }
 
 const Board: FC<PropsType> = ({ title, desc, content, maxContent }) => {
-  const [cards, setCards] = useState<CharacterType[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  let cards: CharacterType[] = [...content];
+  let totalPages = 1;
 
-  useEffect(() => {
+  const setCards = (page: number) => {
     if (maxContent) {
-      setTotalPages(Math.ceil(content.length / maxContent));
       const startPos = (page - 1) * maxContent;
       const endPos = startPos + maxContent;
 
-      setCards(content.slice(startPos, endPos));
-    } else {
-      setCards(content);
+      cards = content.slice(startPos, endPos);
     }
-  }, [page, content])
+  }
 
+  if (maxContent) {
+    totalPages = Math.ceil(content.length / maxContent);
+    setCards(page);
+  }
 
   const handlePrev = () => {
-    setPage(prev => prev -= 1);
+    setPage(prev => prev -= 1)
   }
 
   const handleNext = () => {
-    setPage(prev => prev += 1);
+    setPage(prev => prev += 1)
   }
 
   return (
